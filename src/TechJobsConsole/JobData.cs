@@ -7,7 +7,7 @@ namespace TechJobsConsole
 {
     class JobData
     {
-        static List<Dictionary<string, string>> AllJobs = new List<Dictionary<string, string>>();
+        static List<Dictionary<string, string>> AllJobs = new List<Dictionary<string, string>>(); 
         static bool IsDataLoaded = false;
 
         public static List<Dictionary<string, string>> FindAll()
@@ -15,8 +15,32 @@ namespace TechJobsConsole
             LoadData();
             return AllJobs;
         }
+        
+        public static List<Dictionary<string, string>> FindByValue(string value)
+        {
+            List<Dictionary<string, string>> output = new List<Dictionary<string, string>>();
+            
+            LoadData();
 
-        /*
+            foreach (Dictionary<string, string> job in AllJobs)
+            {
+
+                foreach (KeyValuePair<string, string> item in job)
+                {
+                    if (item.Value.Contains(value))
+                    {
+                        output.Add(job);
+                        continue; 
+                    }
+                }
+
+            }
+            return output;
+        }
+
+
+    
+        /* TODO
          * Returns a list of all values contained in a given column,
          * without duplicates. 
          */

@@ -1,5 +1,7 @@
-﻿using System;
+﻿using Microsoft.Win32.SafeHandles;
+using System;
 using System.Collections.Generic;
+using System.Security.Cryptography;
 
 namespace TechJobsConsole
 {
@@ -27,8 +29,8 @@ namespace TechJobsConsole
             // Allow user to search/list until they manually quit with ctrl+c
             while (true)
             {
-
-                string actionChoice = GetUserSelection("View Jobs", actionChoices);
+                //choice is "list"
+                string actionChoice = GetUserSelection("View Jobs", actionChoices);   //list
 
                 if (actionChoice.Equals("list"))
                 {
@@ -56,14 +58,15 @@ namespace TechJobsConsole
 
                     // What is their search term?
                     Console.WriteLine("\nSearch term: ");
-                    string searchTerm = Console.ReadLine();
+                    string searchTerm = Console.ReadLine().ToLower();
 
                     List<Dictionary<string, string>> searchResults;
 
                     // Fetch results
                     if (columnChoice.Equals("all"))
                     {
-                        Console.WriteLine("Search all fields not yet implemented.");
+                        searchResults = JobData.FindByValue(searchTerm);
+                        PrintJobs(searchResults);
                     }
                     else
                     {
@@ -81,7 +84,7 @@ namespace TechJobsConsole
         {
             int choiceIdx;
             bool isValidChoice = false;
-            string[] choiceKeys = new string[choices.Count];
+            string[] choiceKeys = new string[choices.Count]; //defines length of array
 
             int i = 0;
             foreach (KeyValuePair<string, string> choice in choices)
@@ -94,7 +97,7 @@ namespace TechJobsConsole
             {
                 Console.WriteLine("\n" + choiceHeader + " by:");
 
-                for (int j = 0; j < choiceKeys.Length; j++)
+                for (int j = 0; j < choiceKeys.Length; j++)  //length b/c working with array
                 {
                     Console.WriteLine(j + " - " + choices[choiceKeys[j]]);
                 }
@@ -115,10 +118,37 @@ namespace TechJobsConsole
 
             return choiceKeys[choiceIdx];
         }
-
+       
         private static void PrintJobs(List<Dictionary<string, string>> someJobs)
         {
-            Console.WriteLine("PrintJobs is not implemented yet");
+            if (someJobs.Count == 0)
+            {
+                Console.WriteLine("No results found.");
+            }
+            else 
+            {
+                Console.WriteLine("*****");
+                foreach (Dictionary<string, string> job in someJobs)
+                {
+                    Console.WriteLine("\n " + "*****");
+                    foreach (KeyValuePair<string, string> item in job)
+                    {
+                        Console.WriteLine("*  " + item.Key + ": " + item.Value);
+                    }
+
+                }
+                Console.WriteLine("****");
+            }
+
+            //TODO -- convert to lowercase
+            //take search term and convert to lc before search
+            //take list item searching into lc
+            //.ToLower
+            //one has to be set before the search
+
+
         }
     }
 }
+
+
