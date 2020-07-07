@@ -27,7 +27,8 @@ namespace TechJobsConsole
 
                 foreach (KeyValuePair<string, string> item in job)
                 {
-                    if (item.Value.Contains(value))
+                   string littleItem = item.Value.ToLower(); 
+                    if (littleItem.Contains(value.ToLower()))
                     {
                         output.Add(job);
                         continue; 
@@ -53,8 +54,8 @@ namespace TechJobsConsole
             foreach (Dictionary<string, string> job in AllJobs)
             {
                 string aValue = job[column];
-
-                if (!values.Contains(aValue))
+                
+                if (!values.Contains(aValue))  //checking for duplicity
                 {
                     values.Add(aValue);
                 }
@@ -72,8 +73,9 @@ namespace TechJobsConsole
             foreach (Dictionary<string, string> row in AllJobs)
             {
                 string aValue = row[column];
+                string littleValue = aValue.ToLower(); //converting list into lowercase for comparison -CF
 
-                if (aValue.Contains(value))
+                if (littleValue.Contains(value))
                 {
                     jobs.Add(row);
                 }
@@ -99,7 +101,7 @@ namespace TechJobsConsole
             {
                 while (reader.Peek() >= 0)
                 {
-                    string line = reader.ReadLine();
+                    string line = reader.ReadLine();  
                     string[] rowArrray = CSVRowToStringArray(line);
                     if (rowArrray.Length > 0)
                     {

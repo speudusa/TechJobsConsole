@@ -7,6 +7,7 @@ namespace TechJobsConsole
 {
     class Program
     {
+        //name,employer,location,position type,core competency
         static void Main(string[] args)
         {
             // Create two Dictionary vars to hold info for menu and data
@@ -18,10 +19,10 @@ namespace TechJobsConsole
 
             // Column options
             Dictionary<string, string> columnChoices = new Dictionary<string, string>();
-            columnChoices.Add("core competency", "Skill");
-            columnChoices.Add("employer", "Employer");
+            columnChoices.Add("core competency", "Skill"); 
+            columnChoices.Add("employer", "Employer");  
             columnChoices.Add("location", "Location");
-            columnChoices.Add("position type", "Position Type");
+            columnChoices.Add("position type", "Position Type"); //
             columnChoices.Add("all", "All");
 
             Console.WriteLine("Welcome to LaunchCode's TechJobs App!");
@@ -58,7 +59,7 @@ namespace TechJobsConsole
 
                     // What is their search term?
                     Console.WriteLine("\nSearch term: ");
-                    string searchTerm = Console.ReadLine().ToLower();
+                    string searchTerm = Console.ReadLine().ToLower();   //converting user input to lowercase - CF
 
                     List<Dictionary<string, string>> searchResults;
 
@@ -132,20 +133,13 @@ namespace TechJobsConsole
                 {
                     Console.WriteLine("\n " + "*****");
                     foreach (KeyValuePair<string, string> item in job)
-                    {
+                    { //Line 102 - JobData
                         Console.WriteLine("*  " + item.Key + ": " + item.Value);
                     }
 
                 }
                 Console.WriteLine("****");
             }
-
-            //TODO -- convert to lowercase
-            //take search term and convert to lc before search
-            //take list item searching into lc
-            //.ToLower
-            //one has to be set before the search
-
 
         }
     }
